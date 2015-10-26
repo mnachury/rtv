@@ -503,13 +503,9 @@ class BasePage(object):
         self._try_draw_image()
 
     def _try_draw_image(self):
-        f = open("/home/ted/try", "a")
         if config.images and os.path.isfile("/tmp/rtv.jpg"):
-            termCharWidth = 8
             _, cols = self.stdscr.getmaxyx()
-            writeover = cols//2 * termCharWidth + 50
-            f.write(str(writeover) + "\n")
-            os.system("img.sh /tmp/rtv.jpg " + str(writeover))
+            os.system("img.sh /tmp/rtv.jpg " + str(cols // 2) + " 0")
 
     def _draw_header(self):
 
@@ -552,7 +548,7 @@ class BasePage(object):
         available_rows = (n_rows - 1) if inverted else n_rows
         for data in self.content.iterate(page_index, step, n_cols //2 if config.images else n_cols - 2):
             window_rows = min(available_rows, data['n_rows'])
-            window_cols = n_cols - data['offset']
+            window_cols = n_cols//2-data['offset'] if config.images else n_cols-data['offset']
             start = current_row - window_rows if inverted else current_row
             subwindow = self._content_window.derwin(
                 window_rows, window_cols, start, data['offset'])

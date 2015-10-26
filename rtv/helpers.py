@@ -105,9 +105,9 @@ def open_browser(url, window=None):
     """
 
 
-    if config.images and url.endswith(".jpg"):
-        f = open("/home/ted/curl_log", "a")
-        f.write(url + "\n")
+    if config.images and url.endswith(".png"):
+        os.system("curl -s " + url + " > /tmp/rtv.jpg")
+    elif config.images and url.endswith(".jpg"):
         os.system("curl -s " + url + " > /tmp/rtv.jpg")
     elif check_browser_display():
         command = "import webbrowser; webbrowser.open_new_tab('%s')" % url
