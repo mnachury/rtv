@@ -1,4 +1,5 @@
 import curses
+import os
 import time
 import six
 import sys
@@ -498,6 +499,17 @@ class BasePage(object):
         self._draw_header()
         self._draw_content()
         self._add_cursor()
+
+        self._try_draw_image()
+
+    def _try_draw_image(self):
+        f = open("/home/ted/try", "a")
+        if config.images and os.path.isfile("/tmp/rtv.jpg"):
+            termCharWidth = 8
+            _, cols = self.stdscr.getmaxyx()
+            writeover = cols//2 * termCharWidth + 50
+            f.write(str(writeover) + "\n")
+            os.system("img.sh /tmp/rtv.jpg " + str(writeover))
 
     def _draw_header(self):
 

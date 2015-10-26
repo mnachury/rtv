@@ -84,7 +84,7 @@ def open_editor(data=''):
     return text
 
 
-def open_browser(url):
+def open_browser(url, window=None):
     """
     Open the given url using the default webbrowser. The preferred browser can
     specified with the $BROWSER environment variable. If not specified, python
@@ -104,7 +104,12 @@ def open_browser(url):
     are not detected here.
     """
 
-    if check_browser_display():
+
+    if config.images and url.endswith(".jpg"):
+        f = open("/home/ted/curl_log", "a")
+        f.write(url + "\n")
+        os.system("curl -s " + url + " > /tmp/rtv.jpg")
+    elif check_browser_display():
         command = "import webbrowser; webbrowser.open_new_tab('%s')" % url
         args = [sys.executable, '-c', command]
         with open(os.devnull, 'ab+', 0) as null:

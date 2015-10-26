@@ -1,4 +1,5 @@
 import sys
+import os
 import locale
 import logging
 
@@ -61,6 +62,10 @@ def main():
     else:
         logging.root.addHandler(logging.NullHandler())
 
+    try:
+        os.remove("/tmp/rtv.jpg")
+    except:
+        pass
     try:
         print('Connecting...')
         reddit = praw.Reddit(user_agent=AGENT.format(version=__version__))

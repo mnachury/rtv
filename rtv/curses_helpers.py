@@ -69,8 +69,6 @@ def add_line(window, text, row=None, col=None, attr=None):
     col = col if col is not None else cursor_col
 
     max_rows, max_cols = window.getmaxyx()
-    if config.images:
-        max_cols = max_cols // 2
     n_cols = max_cols - col - 1
     if n_cols <= 0:
         # Trying to draw outside of the screen bounds
