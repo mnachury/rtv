@@ -12,6 +12,7 @@ XDG_HOME = os.getenv('XDG_CONFIG_HOME', os.path.join(HOME, '.config'))
 CONFIG = os.path.join(XDG_HOME, 'rtv', 'rtv.cfg')
 TOKEN = os.path.join(XDG_HOME, 'rtv', 'refresh-token')
 
+images = True
 unicode = True
 persistent = True
 

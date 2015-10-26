@@ -69,6 +69,8 @@ def add_line(window, text, row=None, col=None, attr=None):
     col = col if col is not None else cursor_col
 
     max_rows, max_cols = window.getmaxyx()
+    if config.images:
+        max_cols = max_cols // 2
     n_cols = max_cols - col - 1
     if n_cols <= 0:
         # Trying to draw outside of the screen bounds
@@ -88,6 +90,8 @@ def show_notification(stdscr, message):
     """
 
     n_rows, n_cols = stdscr.getmaxyx()
+    if config.images:
+        n_cols = n_cols // 2
 
     box_width = max(map(len, message)) + 2
     box_height = len(message) + 2
@@ -188,6 +192,8 @@ class LoadScreen(object):
 
         message_len = len(message) + len(trail)
         n_rows, n_cols = self._stdscr.getmaxyx()
+        if config.images:
+            n_cols = n_cols // 2
         s_row = (n_rows - 3) // 2
         s_col = (n_cols - message_len - 1) // 2
         window = self._stdscr.derwin(3, message_len + 2, s_row, s_col)
@@ -298,6 +304,8 @@ def prompt_input(window, prompt, hide=False):
 
     attr = curses.A_BOLD | Color.CYAN
     n_rows, n_cols = window.getmaxyx()
+    if config.images:
+        n_cols = n_cols // 2
 
     if hide:
         prompt += ' ' * (n_cols - len(prompt) - 1)

@@ -5,6 +5,7 @@ import atexit
 
 import requests
 
+from . import config
 from .exceptions import SubredditError, AccountError
 from .page import BasePage, Navigator, BaseController
 from .submission import SubmissionPage
@@ -190,6 +191,8 @@ class SubredditPage(BasePage):
     def draw_item(win, data, inverted=False):
 
         n_rows, n_cols = win.getmaxyx()
+        if config.images:
+            n_cols = n_cols // 2
         n_cols -= 1  # Leave space for the cursor in the first column
 
         # Handle the case where the window is not large enough to fit the data.

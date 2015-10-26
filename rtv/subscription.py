@@ -1,6 +1,7 @@
 import curses
 import logging
 
+from . import config
 from .content import SubscriptionContent
 from .page import BasePage, Navigator, BaseController
 from .curses_helpers import (Color, LoadScreen, add_line)
@@ -62,6 +63,8 @@ class SubscriptionPage(BasePage):
     @staticmethod
     def draw_item(win, data, inverted=False):
         n_rows, n_cols = win.getmaxyx()
+        if config.images:
+            n_cols = n_cols // 2
         n_cols -= 1  # Leave space for the cursor in the first column
 
         # Handle the case where the window is not large enough to fit the data.

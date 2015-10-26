@@ -8,6 +8,7 @@ import praw.errors
 import requests
 from kitchen.text.display import textual_width
 
+from . import config
 from .helpers import open_editor
 from .curses_helpers import (Color, show_notification, show_help, prompt_input,
                              add_line)
@@ -537,7 +538,7 @@ class BasePage(object):
         # and draw upwards.
         current_row = (n_rows - 1) if inverted else 0
         available_rows = (n_rows - 1) if inverted else n_rows
-        for data in self.content.iterate(page_index, step, n_cols - 2):
+        for data in self.content.iterate(page_index, step, n_cols //2 if config.images else n_cols - 2):
             window_rows = min(available_rows, data['n_rows'])
             window_cols = n_cols - data['offset']
             start = current_row - window_rows if inverted else current_row

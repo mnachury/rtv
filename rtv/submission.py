@@ -3,6 +3,7 @@ import sys
 import time
 import logging
 
+from . import config
 from .content import SubmissionContent
 from .page import BasePage, Navigator, BaseController
 from .helpers import open_browser, open_editor
@@ -147,6 +148,8 @@ class SubmissionPage(BasePage):
     def draw_comment(win, data, inverted=False):
 
         n_rows, n_cols = win.getmaxyx()
+        if config.images:
+            n_cols = n_cols // 2
         n_cols -= 1
 
         # Handle the case where the window is not large enough to fit the text.
@@ -195,6 +198,8 @@ class SubmissionPage(BasePage):
     def draw_more_comments(win, data):
 
         n_rows, n_cols = win.getmaxyx()
+        if config.images:
+            n_cols = n_cols // 2
         n_cols -= 1
 
         add_line(win, u'{body}'.format(**data), 0, 1)
@@ -209,6 +214,8 @@ class SubmissionPage(BasePage):
     def draw_submission(win, data):
 
         n_rows, n_cols = win.getmaxyx()
+        if config.images:
+            n_cols = n_cols // 2
         n_cols -= 3  # one for each side of the border + one for offset
 
         for row, text in enumerate(data['split_title'], start=1):
